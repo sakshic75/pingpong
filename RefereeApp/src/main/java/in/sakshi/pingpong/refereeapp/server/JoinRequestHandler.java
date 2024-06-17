@@ -1,17 +1,17 @@
 package in.sakshi.pingpong.refereeapp.server;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import in.sakshi.pingpong.refereeapp.config.Constants;
-import in.sakshi.pingpong.refereeapp.utils.events.EventListener;
-import in.sakshi.pingpong.refereeapp.utils.events.EventPublisher;
-import jdk.jfr.Event;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import in.sakshi.pingpong.refereeapp.config.Constants;
+import in.sakshi.pingpong.refereeapp.utils.events.EventListener;
+import in.sakshi.pingpong.refereeapp.utils.events.EventPublisher;
 
 public class JoinRequestHandler implements HttpHandler, EventPublisher {
     private final List<EventListener> listeners = new ArrayList<>();

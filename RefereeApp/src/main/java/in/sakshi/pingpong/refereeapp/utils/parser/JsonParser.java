@@ -1,11 +1,12 @@
 package in.sakshi.pingpong.refereeapp.utils.parser;
 
+import java.util.UUID;
+
+import org.json.JSONObject;
+
 import in.sakshi.pingpong.refereeapp.config.ConfigStore;
 import in.sakshi.pingpong.refereeapp.config.Constants;
 import in.sakshi.pingpong.refereeapp.models.Player;
-import org.json.JSONObject;
-
-import java.util.UUID;
 
 public class JsonParser implements Parser<JSONObject, Player> {
     @Override

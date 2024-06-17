@@ -1,14 +1,13 @@
 package in.sakshi.pingpong.refereeapp.service;
 
-import in.sakshi.pingpong.refereeapp.models.HttpVerb;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.concurrent.CompletableFuture;
+
+import in.sakshi.pingpong.refereeapp.models.HttpVerb;
 
 public class RefereeServiceImpl implements RefereeService<String, String>{
     private HttpClient client;

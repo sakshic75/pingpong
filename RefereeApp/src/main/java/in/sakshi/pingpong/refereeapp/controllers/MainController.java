@@ -1,24 +1,22 @@
 package in.sakshi.pingpong.refereeapp.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.UUID;
+
+import org.json.JSONObject;
+
 import in.sakshi.pingpong.refereeapp.config.ConfigStore;
 import in.sakshi.pingpong.refereeapp.config.Constants;
-import in.sakshi.pingpong.refereeapp.models.Chance;
 import in.sakshi.pingpong.refereeapp.models.Player;
 import in.sakshi.pingpong.refereeapp.server.JoinRequestHandler;
 import in.sakshi.pingpong.refereeapp.server.RefereeServer;
 import in.sakshi.pingpong.refereeapp.service.RefereeServiceImpl;
 import in.sakshi.pingpong.refereeapp.utils.events.EventListener;
 import in.sakshi.pingpong.refereeapp.utils.parser.JsonParser;
-import org.json.JSONObject;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.UUID;
 
 public class MainController implements EventListener {
     private final RefereeServer server;
@@ -93,7 +91,7 @@ public class MainController implements EventListener {
                 break;
         }
     }
-    
+
     public void playGame(){
         try {
             System.out.println("Game Begun!");

@@ -1,16 +1,17 @@
 package in.sakshi.pingpong.refereeapp.controllers;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.UUID;
+
+import org.json.JSONObject;
+
 import in.sakshi.pingpong.refereeapp.config.ConfigStore;
 import in.sakshi.pingpong.refereeapp.config.Constants;
 import in.sakshi.pingpong.refereeapp.models.Chance;
 import in.sakshi.pingpong.refereeapp.models.HttpVerb;
 import in.sakshi.pingpong.refereeapp.models.Player;
 import in.sakshi.pingpong.refereeapp.service.RefereeService;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.UUID;
 
 public class GameController {
   private final Player offensive;
@@ -35,8 +36,8 @@ public class GameController {
         System.out.println(gameMessage2);
         String message1 = sendOpponentNotificationRequest(defender, offensive);
         System.out.println(message1);
-//        String message2 = sendOpponentNotificationRequest(offensive, defender);
-//        System.out.println(message2);
+        String message2 = sendOpponentNotificationRequest(offensive, defender);
+        System.out.println(message2);
         boolean toggled = true;
         while (defender.getPlayerScore() < sentinelScore || offensive.getPlayerScore() < sentinelScore) {
             if (toggled) {
@@ -90,10 +91,17 @@ public class GameController {
         return new Scorecard();
     }
     public String sendOpponentNotificationRequest(Player defender, Player opponent) throws IOException, InterruptedException {
+    	try {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_ID_REQUEST),opponent.getPlayerId().toString());
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_NAME_REQUEST),opponent.getName());
         return refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
+    	return "";
   }
   public String sendScoreUpdateRequest(Player player) throws IOException, InterruptedException {
       JSONObject jsonObject = new JSONObject();

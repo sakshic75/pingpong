@@ -1,13 +1,14 @@
 package in.sakshi.pingpong.refereeapp.server;
 
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+
 public class RefereeServer implements Server {
     private HttpServer server;
-    
+
     @Override
     public void init(final String uri, final int port) {
         try {
@@ -16,7 +17,7 @@ public class RefereeServer implements Server {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        
+
     }
 
     public void addContext(String context, HttpHandler handler){

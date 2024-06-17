@@ -1,9 +1,9 @@
 package in.sakshi.pingpong.refereeapp.utils.parser;
 
-import in.sakshi.pingpong.refereeapp.config.Constants;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import in.sakshi.pingpong.refereeapp.config.Constants;
 
 public class ArgParser {
     public static Map<String,String> parse(String[] args){

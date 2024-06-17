@@ -15,9 +15,6 @@ public class Driver {
 
     }
     public static void main(String[] args) {
-        // -p port
-        // -n number of players
-        // -u url of referee (without http)
         System.out.println("Referee App!");
         String url;
         int port;
