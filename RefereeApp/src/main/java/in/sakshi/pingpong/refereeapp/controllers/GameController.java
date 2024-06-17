@@ -95,6 +95,8 @@ public class GameController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_ID_REQUEST),opponent.getPlayerId().toString());
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_NAME_REQUEST),opponent.getName());
+        String s = refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
+        System.out.println("Printing s "+s);
         return refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
     	}
     	catch(Exception e)
