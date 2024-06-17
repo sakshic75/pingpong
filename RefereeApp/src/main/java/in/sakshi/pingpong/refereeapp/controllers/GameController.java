@@ -3,6 +3,8 @@ package in.sakshi.pingpong.refereeapp.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import org.json.JSONObject;
 
@@ -28,7 +30,7 @@ public class GameController {
       this.refereeService = service;
       this.sentinelScore = sentinelScore;
   }
-    public Scorecard playGame() throws IOException, InterruptedException {
+    public Scorecard playGame() throws IOException, InterruptedException, ExecutionException, TimeoutException {
         //Scorecard scorecard = new Scorecard(null,null,null);
         String gameMessage1 = sendGameNotificationRequest(offensive);
         System.out.println(gameMessage1);
@@ -39,27 +41,42 @@ public class GameController {
         String message2 = sendOpponentNotificationRequest(offensive, defender);
         System.out.println(message2);
         boolean toggled = true;
-        while (defender.getPlayerScore() < sentinelScore || offensive.getPlayerScore() < sentinelScore) {
+        Player winner = null;
+        Player looser = null;
+        while (defender.getPlayerScore() != sentinelScore || offensive.getPlayerScore() != sentinelScore) {
             if (toggled) {
-                System.out.println("Inside toggle Condition!");
                 String data = sendChanceNotificationRequest(offensive, Chance.FIRST, 0);
                 JSONObject jsonObject = new JSONObject(data);
+                System.out.println(data);
                 if (jsonObject.has(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE))) {
                     boolean foundValue = true;
+                    System.out.println("Key Chance First Offensive");
                     do {
                         int move = jsonObject.getInt(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE));
+                        System.out.println("Offensive Move:"+move);
                         String foundData = sendChanceNotificationRequest(defender, Chance.SECOND, move);
+                        System.out.println("Found Data:"+foundData);
                         JSONObject jsonObject1 = new JSONObject(foundData);
                         if (jsonObject1.has(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE))) {
+                            System.out.println("Inside Defensive Data");
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
+                            System.out.println("Found Value:"+foundValue);
                             if (foundValue) {
                                 offensive.setPlayerScore(offensive.getPlayerScore() + 1);
+                                System.out.println("Offensive Score:"+offensive.getPlayerScore());
+                                System.out.println("Defensive Score:"+defender.getPlayerScore());
+                                if(offensive.getPlayerScore()==sentinelScore){
+                                    toggled = !toggled;
+                                    winner = offensive;
+                                    looser = defender;
+                                    break;
+                                }
                             }
                         } else {
                             System.out.println("Unable to Fetch the Found Value");
                         }
                     } while (!foundValue);
-                    toggled = !toggled;
+                    System.out.println("Outside first loop!");
                 } else {
                     System.out.println("Chance not fetched from the offensive player!");
                 }
@@ -76,42 +93,38 @@ public class GameController {
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
                             if (foundValue) {
                                 defender.setPlayerScore(defender.getPlayerScore() + 1);
+                                if(defender.getPlayerScore()==sentinelScore){
+                                    toggled = !toggled;
+                                    winner = defender;
+                                    looser = offensive;
+                                    break;
+                                }
                             }
                         } else {
                             System.out.println("Unable to fetch Found Value from Defender!");
 
                         }
                     } while (!foundValue);
-                    toggled = !toggled;
                 } else {
                     System.out.println("Chance not fetched from the defensive player!");
                 }
             }
         }
-        return new Scorecard();
+        return new Scorecard(gameId,winner,looser);
     }
-    public String sendOpponentNotificationRequest(Player defender, Player opponent) throws IOException, InterruptedException {
-    	try {
+    public String sendOpponentNotificationRequest(Player defender, Player opponent) throws IOException, InterruptedException, ExecutionException, TimeoutException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_ID_REQUEST),opponent.getPlayerId().toString());
-        jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_NAME_REQUEST),opponent.getName());
-        String s = refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
-        System.out.println("Printing s "+s);
-        return refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
-    	}
-    	catch(Exception e)
-    	{
-    		System.out.println(e.getMessage());
-    	}
-    	return "";
+        jsonObject.put(ConfigStore.loadPreference(Constants.KEY_OPPONENT_NAME_REQUEST), opponent.getName());
+        return refereeService.serve("http://"+defender.getPlayerIp()+":"+defender.getPlayerPort()+ConfigStore.loadPreference(Constants.OPPONENT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.POST);
   }
-  public String sendScoreUpdateRequest(Player player) throws IOException, InterruptedException {
+  public String sendScoreUpdateRequest(Player player) throws IOException, InterruptedException, ExecutionException, TimeoutException {
       JSONObject jsonObject = new JSONObject();
       jsonObject.put(ConfigStore.loadPreference(Constants.KEY_PLAYER_ID),player.getPlayerId());
       jsonObject.put(ConfigStore.loadPreference(Constants.KEY_PLAYER_SCORE),player.getPlayerScore());
-      return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.SCORE_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.PUT);
+      return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.SCORE_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.POST);
   }
-  public String sendChanceNotificationRequest(Player player,Chance chance,int value) throws IOException, InterruptedException {
+  public String sendChanceNotificationRequest(Player player,Chance chance,int value) throws IOException, InterruptedException, ExecutionException, TimeoutException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE),chance.name());
         if(chance==Chance.SECOND){
@@ -120,15 +133,15 @@ public class GameController {
         return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.PLAYER_CHANCE_REQUEST_URI),jsonObject.toString(),HttpVerb.POST);
   }
 
-  public String sendExitNotificationRequest(Player player) throws IOException, InterruptedException {
+  public String sendExitNotificationRequest(Player player) throws InterruptedException, ExecutionException, TimeoutException, IOException {
       JSONObject jsonObject = new JSONObject();
       jsonObject.put(ConfigStore.loadPreference(Constants.KEY_EXIT_REQUEST),true);
       return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.EXIT_REQUEST_HANDLER_URI),jsonObject.toString(),HttpVerb.POST);
   }
-  public String sendGameNotificationRequest(Player player) throws IOException, InterruptedException {
+  public String sendGameNotificationRequest(Player player) throws InterruptedException, ExecutionException, TimeoutException, IOException {
       JSONObject jsonObject = new JSONObject();
       jsonObject.put(ConfigStore.loadPreference(Constants.KEY_GAME_ID),gameId.toString());
-      return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.GAME_NOTIFICATION_RESPONSE_URI),jsonObject.toString(),HttpVerb.PUT);
+      return refereeService.serve("http://"+player.getPlayerIp()+":"+player.getPlayerPort()+ConfigStore.loadPreference(Constants.GAME_NOTIFICATION_RESPONSE_URI),jsonObject.toString(),HttpVerb.POST);
   }
     public static class Scorecard implements Serializable {
       private final UUID gameId;

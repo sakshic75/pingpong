@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 public class PlayersServer implements Server {
     private HttpServer server;
@@ -12,6 +13,7 @@ public class PlayersServer implements Server {
     public void init(String uri, int port) {
         try {
             server = HttpServer.create(new InetSocketAddress(uri, port), 0);
+            server.setExecutor(Executors.newCachedThreadPool());
         }catch (IOException e){
             System.err.println(e.getCause().toString());
         }

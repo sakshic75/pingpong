@@ -23,6 +23,7 @@ public class ChanceNotificationHandler implements HttpHandler, EventPublisher<In
         outputStream.write(getResponseBody().getBytes());
         System.out.println("Chance Response: "+getResponseBody());
         exchange.setStreams(exchange.getRequestBody(),outputStream);
+        exchange.close();
     }
 
     @Override

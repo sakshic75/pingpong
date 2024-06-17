@@ -22,6 +22,7 @@ public class OpponentNotificationHandler implements HttpHandler, EventPublisher<
         OutputStream response = exchange.getResponseBody();
         response.write(getResponseBody().getBytes());
         exchange.setStreams(exchange.getRequestBody(),response);
+        exchange.close();
     }
 
     @Override

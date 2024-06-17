@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/RefereeApp_jar</output-path>
     <root id="archive" name="RefereeApp.jar">
       <element id="module-output" name="RefereeApp" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/deps/json-20140107.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

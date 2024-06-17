@@ -24,6 +24,7 @@ public class ExitGameRequestHandler implements HttpHandler, EventPublisher<Input
         OutputStream response = exchange.getResponseBody();
         response.write(getResponseBody().getBytes());
         exchange.setStreams(exchange.getRequestBody(),response);
+        exchange.close();
         System.exit(0);
     }
 

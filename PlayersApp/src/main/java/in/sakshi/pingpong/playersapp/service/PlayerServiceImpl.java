@@ -17,7 +17,7 @@ public class PlayerServiceImpl implements  PlayerService<String,String>{
     private final HttpClient client;
     public PlayerServiceImpl(){
         client = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_2)
+                .version(HttpClient.Version.HTTP_1_1)
                 .connectTimeout(Duration.ofSeconds(20))
                 .build();
     }
@@ -27,7 +27,7 @@ public class PlayerServiceImpl implements  PlayerService<String,String>{
          switch (method) {
              case HttpVerb.GET :
                 request = HttpRequest.newBuilder()
-                        .version(HttpClient.Version.HTTP_2)
+                        .version(HttpClient.Version.HTTP_1_1)
                         .uri(URI.create(uri))
                         .GET()
                         .build();
@@ -35,7 +35,7 @@ public class PlayerServiceImpl implements  PlayerService<String,String>{
 
              case HttpVerb.POST:
                 request = HttpRequest.newBuilder()
-                        .version(HttpClient.Version.HTTP_2)
+                        .version(HttpClient.Version.HTTP_1_1)
                         .uri(URI.create(uri))
                         .POST(HttpRequest.BodyPublishers.ofString(payload))
                         .build();
@@ -43,7 +43,7 @@ public class PlayerServiceImpl implements  PlayerService<String,String>{
 
             case HttpVerb.PUT:
                 request = HttpRequest.newBuilder()
-                        .version(HttpClient.Version.HTTP_2)
+                        .version(HttpClient.Version.HTTP_1_1)
                         .uri(URI.create(uri))
                         .PUT(HttpRequest.BodyPublishers.ofString(payload))
                         .build();
@@ -51,7 +51,7 @@ public class PlayerServiceImpl implements  PlayerService<String,String>{
 
              case HttpVerb.DELETE:
                 request = HttpRequest.newBuilder()
-                        .version(HttpClient.Version.HTTP_2)
+                        .version(HttpClient.Version.HTTP_1_1)
                         .uri(URI.create(uri))
                         .DELETE()
                         .build();

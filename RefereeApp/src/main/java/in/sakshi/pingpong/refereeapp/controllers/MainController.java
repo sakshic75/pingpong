@@ -6,7 +6,12 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeoutException;
 
+import in.sakshi.pingpong.refereeapp.models.Chance;
 import org.json.JSONObject;
 
 import in.sakshi.pingpong.refereeapp.config.ConfigStore;
@@ -97,7 +102,6 @@ public class MainController implements EventListener {
             System.out.println("Game Begun!");
             System.out.println(players.size());
             while (players.size()>1) {
-
                 System.out.println("Inside While Loop");
                 Player defender = players.poll();
                 Player opponent = players.poll();
@@ -107,7 +111,8 @@ public class MainController implements EventListener {
                 GameController.Scorecard scorecard = gameController.playGame();
                 scoreboardController.addScorecard(scorecard);
                 players.add(scorecard.getWinner());
-            }
+
+             }
             Player champion = players.poll();
             scoreboardController.setChampionId(champion.getPlayerId().toString());
             scoreboardController.setChampionName(champion.getName());
@@ -117,7 +122,12 @@ public class MainController implements EventListener {
             System.out.println(e.getMessage());
         }catch(InterruptedException e){
             System.out.println("IOException:"+e.getMessage());
+        }catch(ExecutionException e){
+            System.out.println("ExecutionException:"+e.getMessage());
+        }catch(TimeoutException e){
+            System.out.println("TimeoutException: "+e.getMessage());
         }
+
     }
 
 }

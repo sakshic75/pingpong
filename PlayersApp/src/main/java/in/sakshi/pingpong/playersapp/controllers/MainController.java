@@ -99,15 +99,18 @@ public class MainController implements EventListener<InputStream> {
 
     @Override
     public void update(String eventType, InputStream inputStream) {
-        String requestBody = null;
+        String requestBody = "";
         JSONObject jsonObject = null;
         try {
             requestBody = new String(inputStream.readAllBytes());
             System.out.println(requestBody);
             jsonObject = new JSONObject(requestBody);
+            System.out.println(requestBody);
         } catch (IOException e) {
             System.out.println(e.getCause().toString());
         }
+        System.out.println(requestBody);
+        System.out.println(jsonObject);
         switch (eventType) {
             case Constants.CHANCE_NOTIFICATION_SUBJECT:
                 if (jsonObject != null && jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_PLAYER_CHANCE))) {
@@ -145,8 +148,11 @@ public class MainController implements EventListener<InputStream> {
                 }
                 break;
             case Constants.OPPONENT_REQUEST_HANDLER_SUBJECT:
+                System.out.println("Opponent sides are equals!");
                 if (jsonObject != null && (jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_ID_REQUEST))
                         && jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_NAME_REQUEST)))) {
+                    System.out.println("Opponent Found!"+jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_ID_REQUEST)));
+                    System.out.println("Opponent Name Found!"+jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_NAME_REQUEST)));
                     player.setOpponentId(UUID.fromString(jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_ID_REQUEST))));
                     player.setOpponentName(jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_OPPONENT_NAME_REQUEST)));
                     System.out.printf("Player %s, has the got the Opponent %s(%s)\n", player.getName(), player.getOpponentName(), player.getOpponentId().toString());
