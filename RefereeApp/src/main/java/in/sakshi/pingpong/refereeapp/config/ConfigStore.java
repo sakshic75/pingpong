@@ -23,10 +23,14 @@ public class ConfigStore {
             prefs.put(Constants.KEY_OPPONENT_NAME_REQUEST,"opponentName");
             prefs.put(Constants.SCORE_REQUEST_HANDLER_URI,"/score/");
             prefs.put(Constants.GAME_NOTIFICATION_RESPONSE_URI,"/game/");
+            prefs.put(Constants.EXIT_REQUEST_HANDLER_URI,"/exitRequest/");
             prefs.put(Constants.KEY_EXIT_REQUEST,"exitValue");
             prefs.put(Constants.KEY_FOUND_VALUE,"foundValue");
             prefs.put(Constants.RESPONSE_STATUS,"responseStatus");
             prefs.put(Constants.RESPONSE_MESSAGE,"responseMessage");
+            prefs.put(Constants.SENTINEL_SCORE,"5");
+            prefs.put(Constants.GAME_REPORT_FILENAME,"game-report-%s.txt");
+
             prefs.flush();
         }catch (BackingStoreException e) {
             System.err.println(e.getCause().toString());

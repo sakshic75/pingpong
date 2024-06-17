@@ -1,8 +1,9 @@
 package in.sakshi.pingpong.refereeapp.models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Player{
+public class Player implements Serializable {
         private String name;
         private UUID playerId;
         private int playerPort;

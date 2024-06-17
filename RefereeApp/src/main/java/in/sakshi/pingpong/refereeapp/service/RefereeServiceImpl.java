@@ -33,6 +33,7 @@ public class RefereeServiceImpl implements RefereeService<String, String>{
             case HttpVerb.POST:
                 request = HttpRequest.newBuilder()
                         .uri(URI.create(uri))
+                        .version(HttpClient.Version.HTTP_1_1)
                         .POST(HttpRequest.BodyPublishers.ofString(payload))
                         .build();
                 return client.send(request, HttpResponse.BodyHandlers.ofString()).body();

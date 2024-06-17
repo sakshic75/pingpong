@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class MainController implements EventListener {
     private final JoinRequestHandler joinRequestHandler;
     private final JsonParser jsonParser;
     private final Queue<Player> players;
+    private final ScoreboardController scoreboardController;
     private final int playerCount;
     private boolean gameStarted;
     public MainController(String url,int port,int playerCount){
@@ -37,6 +40,7 @@ public class MainController implements EventListener {
         this.gameStarted = false;
         this.playerCount = playerCount;
         jsonParser = new JsonParser();
+        scoreboardController = new ScoreboardController();
 
     }
     private void setGameStarted(boolean state){
@@ -91,21 +95,30 @@ public class MainController implements EventListener {
     }
     
     public void playGame(){
-        System.out.println("Game Begun!");
-        Player player1 = players.poll();
-        Player player2 = players.poll();
-        try{
-            GameController controller = new GameController(UUID.randomUUID(),player1,player2,service,5);
-            String a=controller.sendChanceNotificationRequest(player1, Chance.FIRST,0);
-            System.out.println("First Request Sent!");
-            String b=controller.sendChanceNotificationRequest(player2,Chance.SECOND,5);
-            System.out.println(a);
-            System.out.println(b);
-        }catch (IOException e) {
-            System.out.println("Request Failed: IOException");
+        try {
+            System.out.println("Game Begun!");
+            System.out.println(players.size());
+            while (players.size()>1) {
+
+                System.out.println("Inside While Loop");
+                Player defender = players.poll();
+                Player opponent = players.poll();
+                GameController gameController = new GameController(UUID.randomUUID(), opponent, defender, service,
+                        Integer.parseInt(ConfigStore.loadPreference(Constants.SENTINEL_SCORE)));
+                System.out.println("After Constructing!");
+                GameController.Scorecard scorecard = gameController.playGame();
+                scoreboardController.addScorecard(scorecard);
+                players.add(scorecard.getWinner());
+            }
+            Player champion = players.poll();
+            scoreboardController.setChampionId(champion.getPlayerId().toString());
+            scoreboardController.setChampionName(champion.getName());
+            scoreboardController.setChampionScore(champion.getPlayerScore());
+            scoreboardController.saveScoreboard(String.format(ConfigStore.loadPreference(Constants.GAME_REPORT_FILENAME), LocalDateTime.now().toString()));
+        }catch(IOException e){
             System.out.println(e.getMessage());
-        } catch (InterruptedException e) {
-            System.out.println("Request Failed: InterruptedException");
+        }catch(InterruptedException e){
+            System.out.println("IOException:"+e.getMessage());
         }
     }
 

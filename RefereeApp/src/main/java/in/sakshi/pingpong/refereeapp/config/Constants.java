@@ -12,6 +12,8 @@ public final class Constants {
     public static final String KEY_PLAYER_SCORE = PREFIX+DELIMITER+"playerScore";
     public static final String KEY_PLAYER_PORT = PREFIX+DELIMITER+"playerPort";
     public static final String KEY_PLAYER_IP = PREFIX+DELIMITER+"playerip";
+    public static final String SENTINEL_SCORE = PREFIX+DELIMITER+"sentinel_score";
+    public static final String GAME_REPORT_FILENAME = PREFIX+DELIMITER+"filename";
 
     // Command Line Argument Parser
     public static final String PARSER_KEY_PORT = PREFIX+DELIMITER+"referee_port";
@@ -28,7 +30,7 @@ public final class Constants {
 
     // Player Chance Notification Request
     public static final String PLAYER_CHANCE_REQUEST_URI = PREFIX+DELIMITER+"playerChanceUrl";
-    public static final String KEY_PLAYER_CHANCE =PREFIX+DELIMITER+"chanceValue";
+    public static final String KEY_PLAYER_CHANCE = PREFIX+DELIMITER+"chanceValue";
     public static final String KEY_FOUND_VALUE = PREFIX+DELIMITER+"foundValue";
 
     // Exit Request

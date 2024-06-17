@@ -25,7 +25,7 @@ public class Player {
     public Player(final UUID playerId,final String name,final int arrayLength){
         this(playerId);;
         setDefenseArrayLength(arrayLength);
-        randomGenerator = new RandomGenerator(1,getDefenseArrayLength());
+        randomGenerator = new RandomGenerator(1,10);
         this.name = name;
         createDefenseArray(arrayLength, randomGenerator);
     }

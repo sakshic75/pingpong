@@ -103,22 +103,25 @@ public class MainController implements EventListener<InputStream> {
         JSONObject jsonObject = null;
         try {
             requestBody = new String(inputStream.readAllBytes());
+            System.out.println(requestBody);
             jsonObject = new JSONObject(requestBody);
         } catch (IOException e) {
             System.out.println(e.getCause().toString());
         }
         switch (eventType) {
             case Constants.CHANCE_NOTIFICATION_SUBJECT:
-
-                Chance chance;
                 if (jsonObject != null && jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_PLAYER_CHANCE))) {
-                    chance = Chance.valueOf(jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_PLAYER_CHANCE)));
-                    if (chance == Chance.FIRST) {
+                   Chance chance = Chance.valueOf(jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_PLAYER_CHANCE)));
+                    System.out.println("Chance: "+chance.name());
+                   if (chance == Chance.FIRST) {
                         int move = player.nextMove();
                         System.out.printf("Opponent %s has chosen the move as %d\n",player.getName(),move);
                         chanceNotificationHandler.setResponseBody(ResponseHelper.respondWithNextMove(move));
                     } else if (chance == Chance.SECOND) {
-                        int number = Integer.parseInt(jsonObject.getString(ConfigStore.loadPreferences(Constants.KEY_FOUND_VALUE)));
+                       int number = 0;
+                       if(jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_FOUND_VALUE))) {
+                           number = jsonObject.getInt(ConfigStore.loadPreferences(Constants.KEY_FOUND_VALUE));
+                       }
                         boolean found = player.contains(number);
                         System.out.printf("Defender %s checked the opponent move %d and %s it.\n",player.getName(),number,(found?"found":"not found"));
                         chanceNotificationHandler.setResponseBody(ResponseHelper.respondWithIsPresent(player.contains(number)));
@@ -127,11 +130,15 @@ public class MainController implements EventListener<InputStream> {
                     System.out.println("Corrupted Data for Player Move Request");
                 }
                 break;
+
             case Constants.EXIT_REQUEST_HANDLER_SUBJECT:
+
                 if (jsonObject != null && jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_EXIT_REQUEST))) {
                     boolean exit = jsonObject.getBoolean(ConfigStore.loadPreferences(Constants.KEY_EXIT_REQUEST));
                     if (exit) {
                         exitGameRequestHandler.setResponseBody(ResponseHelper.respondWithSuccess("SUCCESS", player.getName() + " left the game!"));
+                    }else{
+                        exitGameRequestHandler.setResponseBody(ResponseHelper.respondWithSuccess("FAILED", player.getName() + " is unable to left the game!"));
                     }
                 } else {
                     System.out.println("Corrupted Data For Player Exit Request!");
@@ -153,12 +160,13 @@ public class MainController implements EventListener<InputStream> {
                         jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_PLAYER_SCORE))) {
                     var playerId = jsonObject.get(ConfigStore.loadPreferences(Constants.KEY_PLAYER_ID));
                     var playerScore = jsonObject.getInt(ConfigStore.loadPreferences(Constants.KEY_PLAYER_SCORE));
-                    if (player.getPlayerId().equals(playerId)) {
+                    if (player.getPlayerId().toString().equals(playerId.toString())) {
                         player.setScore(playerScore);
-                        scoreUpdateRequestHandler.setResponseBody(ResponseHelper.respondWithSuccess("SUCCESS", "Player " + player.getName() + " has scored " + player.getScore() + " points.z"));
+                        scoreUpdateRequestHandler.setResponseBody(ResponseHelper.respondWithSuccess("SUCCESS", "Player " + player.getName() + " has scored " + player.getScore() + " points."));
                         System.out.printf("Player %s has the score %d points\n", player.getName(), player.getScore());
                     } else {
                         System.out.println("Player ID doesn't match with current Player!");
+                        scoreUpdateRequestHandler.setResponseBody(ResponseHelper.respondWithSuccess("FAILED", "Player ID doesn't match with current Player!"));
                     }
 
                 } else {
