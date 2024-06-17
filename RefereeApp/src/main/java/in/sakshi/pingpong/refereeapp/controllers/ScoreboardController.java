@@ -1,9 +1,9 @@
 package in.sakshi.pingpong.refereeapp.controllers;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +42,27 @@ public class ScoreboardController  implements Serializable {
         this.championScore = championScore;
     }
     public void saveScoreboard(final String filename)  {
-        try(FileOutputStream fileOutputStream = new FileOutputStream(filename)) {
+        try{
+            File file = new File("C:\\GameReports\\");
+            if(!file.exists()){
+                boolean isCreated = file.mkdir();
+                if(isCreated){
+                    System.out.println("Game Directory created at C:\\GameReports\\");
+                }else{
+                    System.out.println("Unable to create Game Directory  at C:\\GameReports\\");
+                }
+            }
+            FileOutputStream fileOutputStream = new FileOutputStream("C:\\GameReports\\"+filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
             outputStream.writeObject(this);
             outputStream.flush();
             outputStream.close();
+            fileOutputStream.close();
+           // System.out.println("Report is saved on the following path: "+path.toString());
         }catch (IOException e){
             System.out.println(e.getMessage());
+        }catch (NullPointerException e){
+            System.out.println("NullPointerException: "+e.getMessage());
         }
     }
 

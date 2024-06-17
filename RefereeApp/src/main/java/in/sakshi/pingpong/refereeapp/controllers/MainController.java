@@ -2,6 +2,7 @@ package in.sakshi.pingpong.refereeapp.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -107,8 +108,8 @@ public class MainController implements EventListener {
                 Player opponent = players.poll();
                 GameController gameController = new GameController(UUID.randomUUID(), opponent, defender, service,
                         Integer.parseInt(ConfigStore.loadPreference(Constants.SENTINEL_SCORE)));
-                System.out.println("After Constructing!");
                 GameController.Scorecard scorecard = gameController.playGame();
+                gameController.sendExitNotificationRequest(scorecard.getLooser());
                 scoreboardController.addScorecard(scorecard);
                 players.add(scorecard.getWinner());
 
@@ -117,7 +118,9 @@ public class MainController implements EventListener {
             scoreboardController.setChampionId(champion.getPlayerId().toString());
             scoreboardController.setChampionName(champion.getName());
             scoreboardController.setChampionScore(champion.getPlayerScore());
-            scoreboardController.saveScoreboard(String.format(ConfigStore.loadPreference(Constants.GAME_REPORT_FILENAME), LocalDateTime.now().toString()));
+            System.out.println("***CHAMPION:"+champion.getName()+"***");
+            System.out.println("***SCORE:"+champion.getPlayerScore()+"***");
+            scoreboardController.saveScoreboard(ConfigStore.loadPreference(Constants.GAME_REPORT_FILENAME));
         }catch(IOException e){
             System.out.println(e.getMessage());
         }catch(InterruptedException e){

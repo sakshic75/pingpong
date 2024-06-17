@@ -31,6 +31,7 @@ public final class Constants {
     // Player Chance Notification Request
     public static final String PLAYER_CHANCE_REQUEST_URI = PREFIX+DELIMITER+"playerChanceUrl";
     public static final String KEY_PLAYER_CHANCE = PREFIX+DELIMITER+"chanceValue";
+    public static final String  KEY_CHANCE_MOVE_VALUE = PREFIX+DELIMITER+"chanceMoveValue";
     public static final String KEY_FOUND_VALUE = PREFIX+DELIMITER+"foundValue";
 
     // Exit Request

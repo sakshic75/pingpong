@@ -29,7 +29,8 @@ public class ConfigStore {
             prefs.put(Constants.RESPONSE_STATUS,"responseStatus");
             prefs.put(Constants.RESPONSE_MESSAGE,"responseMessage");
             prefs.put(Constants.SENTINEL_SCORE,"5");
-            prefs.put(Constants.GAME_REPORT_FILENAME,"game-report-%s.txt");
+            prefs.put(Constants.GAME_REPORT_FILENAME,"game-report.txt");
+            prefs.put(Constants.KEY_CHANCE_MOVE_VALUE,"chanceMoveValue");
 
             prefs.flush();
         }catch (BackingStoreException e) {

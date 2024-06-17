@@ -47,70 +47,89 @@ public class GameController {
             if (toggled) {
                 String data = sendChanceNotificationRequest(offensive, Chance.FIRST, 0);
                 JSONObject jsonObject = new JSONObject(data);
-                System.out.println(data);
-                if (jsonObject.has(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE))) {
-                    boolean foundValue = true;
-                    System.out.println("Key Chance First Offensive");
+                // {
+                //  "chanceValue": someNumber
+                // ]
+                if(jsonObject.has(ConfigStore.loadPreference(Constants.KEY_CHANCE_MOVE_VALUE))) {
+                    boolean foundValue = false;
                     do {
-                        int move = jsonObject.getInt(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE));
-                        System.out.println("Offensive Move:"+move);
+                        int move = jsonObject.getInt(ConfigStore.loadPreference(Constants.KEY_CHANCE_MOVE_VALUE));
                         String foundData = sendChanceNotificationRequest(defender, Chance.SECOND, move);
-                        System.out.println("Found Data:"+foundData);
                         JSONObject jsonObject1 = new JSONObject(foundData);
                         if (jsonObject1.has(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE))) {
-                            System.out.println("Inside Defensive Data");
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
-                            System.out.println("Found Value:"+foundValue);
-                            if (foundValue) {
+                            if (!foundValue) {
+                                if(offensive.getPlayerScore()==sentinelScore){
+                                    return new Scorecard(gameId,offensive,defender);
+                                }
                                 offensive.setPlayerScore(offensive.getPlayerScore() + 1);
                                 System.out.println("Offensive Score:"+offensive.getPlayerScore());
                                 System.out.println("Defensive Score:"+defender.getPlayerScore());
-                                if(offensive.getPlayerScore()==sentinelScore){
-                                    toggled = !toggled;
-                                    winner = offensive;
-                                    looser = defender;
-                                    break;
+
+                            }else{
+                                if(defender.getPlayerScore()==sentinelScore){
+                                    return new Scorecard(gameId,defender,offensive);
                                 }
+                                defender.setPlayerScore(defender.getPlayerScore()+1);
+                                System.out.println("Offensive Score:"+offensive.getPlayerScore());
+                                System.out.println("Defensive Score:"+defender.getPlayerScore());
+                                toggled = !toggled;
+                                break;
                             }
                         } else {
                             System.out.println("Unable to Fetch the Found Value");
                         }
-                    } while (!foundValue);
-                    System.out.println("Outside first loop!");
+                    } while (foundValue);
+                    if(offensive.getPlayerScore()==sentinelScore){
+                        return new Scorecard(gameId,offensive,defender);
+                    }else if(defender.getPlayerScore()==sentinelScore){
+                        return new Scorecard(gameId,defender,offensive);
+                    }
+
                 } else {
                     System.out.println("Chance not fetched from the offensive player!");
                 }
             } else {
                 String data = sendChanceNotificationRequest(defender, Chance.FIRST, 0);
                 JSONObject jsonObject = new JSONObject(data);
-                if (jsonObject.has(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE))) {
-                    boolean foundValue = true;
+                if (jsonObject.has(ConfigStore.loadPreference(Constants.KEY_CHANCE_MOVE_VALUE))) {
+                    boolean foundValue = false;
                     do {
-                        int move = jsonObject.getInt(ConfigStore.loadPreference(Constants.KEY_PLAYER_CHANCE));
+                        int move = jsonObject.getInt(ConfigStore.loadPreference(Constants.KEY_CHANCE_MOVE_VALUE));
                         String data1 = sendChanceNotificationRequest(offensive, Chance.SECOND, move);
                         JSONObject jsonObject1 = new JSONObject(data1);
                         if (jsonObject1.has(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE))) {
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
-                            if (foundValue) {
-                                defender.setPlayerScore(defender.getPlayerScore() + 1);
+                            if (!foundValue) {
                                 if(defender.getPlayerScore()==sentinelScore){
-                                    toggled = !toggled;
-                                    winner = defender;
-                                    looser = offensive;
-                                    break;
+                                    return new Scorecard(gameId,defender,offensive);
                                 }
+                                defender.setPlayerScore(defender.getPlayerScore() + 1);
+
+                            }else{
+                                if(offensive.getPlayerScore()==sentinelScore){
+                                    return new Scorecard(gameId,offensive,defender);
+                                }
+                                offensive.setPlayerScore(offensive.getPlayerScore()+1);
+                                toggled = !toggled;
+                                break;
                             }
                         } else {
                             System.out.println("Unable to fetch Found Value from Defender!");
 
                         }
-                    } while (!foundValue);
+                    } while (foundValue);
+                    if(defender.getPlayerScore()==sentinelScore){
+                        return new Scorecard(gameId,defender,offensive);
+                    }else if(offensive.getPlayerScore()==sentinelScore){
+                        return new Scorecard(gameId,offensive,defender);
+                    }
                 } else {
                     System.out.println("Chance not fetched from the defensive player!");
                 }
             }
         }
-        return new Scorecard(gameId,winner,looser);
+        return new Scorecard(gameId,null,null);
     }
     public String sendOpponentNotificationRequest(Player defender, Player opponent) throws IOException, InterruptedException, ExecutionException, TimeoutException {
         JSONObject jsonObject = new JSONObject();
