@@ -30,7 +30,7 @@ Run the Referee app on port 8081:
 
 Go inside the folder with a new terminal
 
-/RefereeApp/out/artifacts/RefereeApp_jar
+/RefereeApp/out/artifacts/RefereeApp_jar    
 
 and then run 
 
@@ -44,17 +44,27 @@ Here n is mentioned as number of players
 Example for 2 players
 
 Player Apps
-Run 2 Player apps on different ports:
-using 
+Run 2 Player apps on different ports using  
+
+
 cd /PlayersApp/out/artifacts/PlayersApp_jar
+
+
 java -jar PlayersApp.jar -n Jason -r 8081 -c http://127.0.0.1 -p 8083 -s localhost -d 10
 
-again on a different terminal :
-using 
+again on a different terminal using :
+
 cd /PlayersApp/out/artifacts/PlayersApp_jar
+
+
 java -jar PlayersApp.jar -n Nick -r 8081 -c http://127.0.0.1 -p 8082 -s localhost -d 10
 
-The app should be running and the game report will be stored 
+The app should be running and the game report will be stored .
+
+
+The part to automate the process of taking players info from the file is in progress.
+
+And some changes to write in the .txt file . 
 
 
 License
