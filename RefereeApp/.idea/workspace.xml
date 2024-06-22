@@ -5,14 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b699294-19fd-4452-8a47-d732a6693232" name="Changes" comment="Fixed HttpServer Closure Logic.">
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/PlayersApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/PlayersApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/artifacts/PlayersApp_jar/PlayersApp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/artifacts/PlayersApp_jar/PlayersApp.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/config/ConfigStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/config/ConfigStore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/config/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/config/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/controllers/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/helpers/ResponseHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/helpers/ResponseHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/Chance.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/Chance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/HttpVerb.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/HttpVerb.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/model/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ChanceNotificationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ChanceNotificationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ExitGameRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ExitGameRequestHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/GameNotificationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/GameNotificationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/OpponentNotificationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/OpponentNotificationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/PlayersServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/PlayersServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ScoreUpdateRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/server/ScoreUpdateRequestHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/service/PlayerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/service/PlayerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/service/PlayerServiceImpl$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/service/PlayerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/service/PlayerServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/RandomGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/RandomGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/events/EventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/events/EventListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/events/EventPublisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/events/EventPublisher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/ArgParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/ArgParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/JsonParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/JsonParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/out/production/PlayersApp/in/sakshi/pingpong/playersapp/utils/parsers/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PlayersApp/src/main/java/in/sakshi/pingpong/playersapp/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PlayersApp/src/main/java/in/sakshi/pingpong/playersapp/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RefereeApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RefereeApp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/RefereeApp_jar/RefereeApp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RefereeApp_jar/RefereeApp.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController$Scorecard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController$Scorecard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/MainController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/ScoreboardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/ScoreboardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/config/ConfigStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/config/ConfigStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/config/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/config/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/ScoreboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/ScoreboardController.java" afterDir="false" />
@@ -25,29 +49,36 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2i0SRDvmmQsQ90NzPENqfuUwUXg" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CLI.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Princess/App/RefereeApp",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.CLI.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sakshichandel/Downloads/pingpong/pingpong/RefereeApp&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="CLI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="in.sakshi.pingpong.refereeapp.Driver" />
@@ -58,6 +89,14 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,6 +105,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1718625991391</updated>
+      <workItem from="1718897322795" duration="9166000" />
+      <workItem from="1719057715038" duration="5879000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed HttpServer Closure Logic.">
       <option name="closed" value="true" />
@@ -77,6 +118,9 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

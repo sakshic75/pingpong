@@ -32,13 +32,13 @@ public class GameController {
   }
     public Scorecard playGame() throws IOException, InterruptedException, ExecutionException, TimeoutException {
         //Scorecard scorecard = new Scorecard(null,null,null);
-        String gameMessage1 = sendGameNotificationRequest(offensive);
+        String gameMessage1 = sendGameNotificationRequest(offensive); // /game/
         System.out.println(gameMessage1);
-        String gameMessage2 = sendGameNotificationRequest(defender);
+        String gameMessage2 = sendGameNotificationRequest(defender); // /game/
         System.out.println(gameMessage2);
-        String message1 = sendOpponentNotificationRequest(defender, offensive);
+        String message1 = sendOpponentNotificationRequest(defender, offensive); // /opponent/
         System.out.println(message1);
-        String message2 = sendOpponentNotificationRequest(offensive, defender);
+        String message2 = sendOpponentNotificationRequest(offensive, defender); // /opponent
         System.out.println(message2);
         boolean toggled = true;
         Player winner = null;
@@ -47,9 +47,6 @@ public class GameController {
             if (toggled) {
                 String data = sendChanceNotificationRequest(offensive, Chance.FIRST, 0);
                 JSONObject jsonObject = new JSONObject(data);
-                // {
-                //  "chanceValue": someNumber
-                // ]
                 if(jsonObject.has(ConfigStore.loadPreference(Constants.KEY_CHANCE_MOVE_VALUE))) {
                     boolean foundValue = false;
                     do {
@@ -59,20 +56,24 @@ public class GameController {
                         if (jsonObject1.has(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE))) {
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
                             if (!foundValue) {
-                                if(offensive.getPlayerScore()==sentinelScore){
-                                    return new Scorecard(gameId,offensive,defender);
-                                }
+//                                if(offensive.getPlayerScore()==sentinelScore){
+//                                    return new Scorecard(gameId,offensive,defender);
+//                                }
                                 offensive.setPlayerScore(offensive.getPlayerScore() + 1);
-                                System.out.println("Offensive Score:"+offensive.getPlayerScore());
-                                System.out.println("Defensive Score:"+defender.getPlayerScore());
+                                sendScoreUpdateRequest(offensive);
+                                sendScoreUpdateRequest(defender);
+                                System.out.println(offensive.getName()+" Score:"+offensive.getPlayerScore());
+                                System.out.println(defender.getName()+" Score:"+defender.getPlayerScore());
 
                             }else{
-                                if(defender.getPlayerScore()==sentinelScore){
-                                    return new Scorecard(gameId,defender,offensive);
-                                }
+//                                if(defender.getPlayerScore()==sentinelScore){
+//                                    return new Scorecard(gameId,defender,offensive);
+//                                }
                                 defender.setPlayerScore(defender.getPlayerScore()+1);
-                                System.out.println("Offensive Score:"+offensive.getPlayerScore());
-                                System.out.println("Defensive Score:"+defender.getPlayerScore());
+                                sendScoreUpdateRequest(offensive);
+                                sendScoreUpdateRequest(defender);
+                                System.out.println(offensive.getName()+" Score:"+offensive.getPlayerScore());
+                                System.out.println(defender.getName()+" Score:"+defender.getPlayerScore());
                                 toggled = !toggled;
                                 break;
                             }
@@ -101,16 +102,24 @@ public class GameController {
                         if (jsonObject1.has(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE))) {
                             foundValue = jsonObject1.getBoolean(ConfigStore.loadPreference(Constants.KEY_FOUND_VALUE));
                             if (!foundValue) {
-                                if(defender.getPlayerScore()==sentinelScore){
-                                    return new Scorecard(gameId,defender,offensive);
-                                }
+//                                if(defender.getPlayerScore()==sentinelScore){
+//                                    return new Scorecard(gameId,defender,offensive);
+//                                }
                                 defender.setPlayerScore(defender.getPlayerScore() + 1);
+                                sendScoreUpdateRequest(defender);
+                                sendScoreUpdateRequest(offensive);
+                                System.out.println(defender.getName()+" Score:"+defender.getPlayerScore());
+                                System.out.println(offensive.getName()+" Score:"+offensive.getPlayerScore());
 
                             }else{
-                                if(offensive.getPlayerScore()==sentinelScore){
-                                    return new Scorecard(gameId,offensive,defender);
-                                }
+//                                if(offensive.getPlayerScore()==sentinelScore){
+//                                    return new Scorecard(gameId,offensive,defender);
+//                                }
                                 offensive.setPlayerScore(offensive.getPlayerScore()+1);
+                                sendScoreUpdateRequest(defender);
+                                sendScoreUpdateRequest(offensive);
+                                System.out.println(defender.getName()+" Score:"+defender.getPlayerScore());
+                                System.out.println(offensive.getName()+" Score:"+offensive.getPlayerScore());
                                 toggled = !toggled;
                                 break;
                             }
@@ -185,6 +194,15 @@ public class GameController {
 
         public UUID getGameId() {
             return gameId;
+        }
+
+        @Override
+        public String toString() {
+            return "Scorecard{" +
+                    "gameId=" + gameId +
+                    ", winner=" + winner +
+                    ", looser=" + looser +
+                    '}';
         }
     }
 

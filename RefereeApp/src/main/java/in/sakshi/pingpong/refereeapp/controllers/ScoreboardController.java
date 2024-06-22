@@ -54,7 +54,7 @@ public class ScoreboardController  implements Serializable {
             }
             FileOutputStream fileOutputStream = new FileOutputStream("C:\\GameReports\\"+filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
-            outputStream.writeObject(this);
+            outputStream.writeObject(this.toString());
             outputStream.flush();
             outputStream.close();
             fileOutputStream.close();
@@ -66,4 +66,13 @@ public class ScoreboardController  implements Serializable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ScoreboardController{" +
+                "championName='" + championName + '\'' +
+                ", championId='" + championId + '\'' +
+                ", championScore=" + championScore +
+                ", scorecards=" + scorecards +
+                '}';
+    }
 }

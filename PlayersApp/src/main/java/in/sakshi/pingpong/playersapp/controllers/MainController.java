@@ -103,14 +103,10 @@ public class MainController implements EventListener<InputStream> {
         JSONObject jsonObject = null;
         try {
             requestBody = new String(inputStream.readAllBytes());
-            System.out.println(requestBody);
             jsonObject = new JSONObject(requestBody);
-            System.out.println(requestBody);
         } catch (IOException e) {
             System.out.println(e.getCause().toString());
         }
-        System.out.println(requestBody);
-        System.out.println(jsonObject);
         switch (eventType) {
             case Constants.CHANCE_NOTIFICATION_SUBJECT:
                 if (jsonObject != null && jsonObject.has(ConfigStore.loadPreferences(Constants.KEY_PLAYER_CHANCE))) {

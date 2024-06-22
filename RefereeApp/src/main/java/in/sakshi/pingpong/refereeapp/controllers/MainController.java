@@ -33,33 +33,39 @@ public class MainController implements EventListener {
     private final ScoreboardController scoreboardController;
     private final int playerCount;
     private boolean gameStarted;
-    public MainController(String url,int port,int playerCount){
+
+    public MainController(String url, int port, int playerCount) {
         players = new LinkedList<>();
         server = new RefereeServer();
         service = new RefereeServiceImpl();
         server.init(url, port);
         joinRequestHandler = new JoinRequestHandler();
         joinRequestHandler.addEventListener(this);
-        server.addContext(ConfigStore.loadPreference(Constants.JOIN_GAME_REQUEST_URI),joinRequestHandler);
+        server.addContext(ConfigStore.loadPreference(Constants.JOIN_GAME_REQUEST_URI), joinRequestHandler);
         this.gameStarted = false;
         this.playerCount = playerCount;
         jsonParser = new JsonParser();
         scoreboardController = new ScoreboardController();
 
     }
-    private void setGameStarted(boolean state){
+
+    private void setGameStarted(boolean state) {
         this.gameStarted = state;
     }
-    public boolean getGameStarted(){
+
+    public boolean getGameStarted() {
         return this.gameStarted;
     }
-    public int getPlayerCount(){
+
+    public int getPlayerCount() {
         return playerCount;
     }
-    public void init(){
+
+    public void init() {
         server.start();
     }
-    public void suspend(){
+
+    public void suspend() {
         joinRequestHandler.removeEventListener(this);
         server.close();
         System.exit(0);
@@ -67,28 +73,28 @@ public class MainController implements EventListener {
 
     @Override
     public void update(String eventType, InputStream data) {
-        switch(eventType){
+        switch (eventType) {
             case Constants.JOIN_GAME_REQUEST_ID:
                 try {
                     System.out.println("Request Received!");
                     String playerData = new String(data.readAllBytes());
                     JSONObject jsonObject = new JSONObject(playerData);
                     Player player = jsonParser.parse(jsonObject);
-                    if(players.size()==playerCount-1){
+                    if (players.size() == playerCount - 1) {
                         System.out.println("All players are in!");
                         players.add(player);
-                        if(!getGameStarted()){
+                        if (!getGameStarted()) {
                             playGame();
                             setGameStarted(true);
                         }
-                    }else if(players.size()<playerCount) {
+                    } else if (players.size() < playerCount) {
                         System.out.println("Some player are remaining!");
                         System.out.println(player);
                         players.add(player);
                     }
                     joinRequestHandler.setResponseBody(ResponseHelper.joinGameResponse("SUCCESS",
-                            String.format("Player %s (%s) has joined the Room!",player.getName(),player.getPlayerId().toString())));
-                }catch (IOException e){
+                            String.format("Player %s (%s) has joined the Room!", player.getName(), player.getPlayerId().toString())));
+                } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -98,37 +104,43 @@ public class MainController implements EventListener {
         }
     }
 
-    public void playGame(){
+    public void playGame() {
+        GameController gameController = null;
         try {
             System.out.println("Game Begun!");
             System.out.println(players.size());
-            while (players.size()>1) {
+            while (players.size() > 1) {
                 System.out.println("Inside While Loop");
                 Player defender = players.poll();
                 Player opponent = players.poll();
-                GameController gameController = new GameController(UUID.randomUUID(), opponent, defender, service,
+                gameController = new GameController(UUID.randomUUID(), opponent, defender, service,
                         Integer.parseInt(ConfigStore.loadPreference(Constants.SENTINEL_SCORE)));
                 GameController.Scorecard scorecard = gameController.playGame();
                 gameController.sendExitNotificationRequest(scorecard.getLooser());
                 scoreboardController.addScorecard(scorecard);
                 players.add(scorecard.getWinner());
 
-             }
+            }
             Player champion = players.poll();
             scoreboardController.setChampionId(champion.getPlayerId().toString());
             scoreboardController.setChampionName(champion.getName());
             scoreboardController.setChampionScore(champion.getPlayerScore());
-            System.out.println("***CHAMPION:"+champion.getName()+"***");
-            System.out.println("***SCORE:"+champion.getPlayerScore()+"***");
+            System.out.println("***CHAMPION:" + champion.getName() + "***");
+            System.out.println("***SCORE:" + champion.getPlayerScore() + "***");
             scoreboardController.saveScoreboard(ConfigStore.loadPreference(Constants.GAME_REPORT_FILENAME));
-        }catch(IOException e){
+            gameController.sendExitNotificationRequest(champion);
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(InterruptedException e){
-            System.out.println("IOException:"+e.getMessage());
-        }catch(ExecutionException e){
-            System.out.println("ExecutionException:"+e.getMessage());
-        }catch(TimeoutException e){
-            System.out.println("TimeoutException: "+e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("IOException:" + e.getMessage());
+        } catch (ExecutionException e) {
+            System.out.println("ExecutionException:" + e.getMessage());
+        } catch (TimeoutException e) {
+            System.out.println("TimeoutException: " + e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println("Null exception: " + e.getMessage());
+        } finally {
+            System.exit(0);
         }
 
     }
