@@ -41,8 +41,6 @@ public class GameController {
         String message2 = sendOpponentNotificationRequest(offensive, defender); // /opponent
         System.out.println(message2);
         boolean toggled = true;
-        Player winner = null;
-        Player looser = null;
         while (defender.getPlayerScore() != sentinelScore || offensive.getPlayerScore() != sentinelScore) {
             if (toggled) {
                 String data = sendChanceNotificationRequest(offensive, Chance.FIRST, 0);
@@ -138,7 +136,7 @@ public class GameController {
                 }
             }
         }
-        return new Scorecard(gameId,null,null);
+        return new Scorecard(gameId,defender,offensive);
     }
     public String sendOpponentNotificationRequest(Player defender, Player opponent) throws IOException, InterruptedException, ExecutionException, TimeoutException {
         JSONObject jsonObject = new JSONObject();

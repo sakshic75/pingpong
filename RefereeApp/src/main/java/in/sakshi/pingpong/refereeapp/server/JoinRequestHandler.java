@@ -44,6 +44,7 @@ public class JoinRequestHandler implements HttpHandler, EventPublisher {
         OutputStream o = exchange.getResponseBody();
         o.write(this.getResponseBody().getBytes());
         exchange.setStreams(exchange.getRequestBody(),o);
+        exchange.close();
     }
 
     public String getResponseBody() {

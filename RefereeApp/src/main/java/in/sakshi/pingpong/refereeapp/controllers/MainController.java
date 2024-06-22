@@ -113,6 +113,8 @@ public class MainController implements EventListener {
                 System.out.println("Inside While Loop");
                 Player defender = players.poll();
                 Player opponent = players.poll();
+                defender.setPlayerScore(0);
+                opponent.setPlayerScore(0);
                 gameController = new GameController(UUID.randomUUID(), opponent, defender, service,
                         Integer.parseInt(ConfigStore.loadPreference(Constants.SENTINEL_SCORE)));
                 GameController.Scorecard scorecard = gameController.playGame();
