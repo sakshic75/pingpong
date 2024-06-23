@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1b699294-19fd-4452-8a47-d732a6693232" name="Changes" comment="Fixed HttpServer Closure Logic.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/RefereeApp_jar/RefereeApp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/RefereeApp_jar/RefereeApp.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController$Scorecard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController$Scorecard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RefereeApp/in/sakshi/pingpong/refereeapp/controllers/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/server/JoinRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/in/sakshi/pingpong/refereeapp/server/JoinRequestHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
